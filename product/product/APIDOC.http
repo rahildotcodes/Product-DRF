@@ -1,0 +1,87 @@
+#token getting
+###
+POST http://127.0.0.1:8000/token
+Content-Type: application/json
+
+{
+    "username":"admin",
+    "password":"admin"
+}
+
+###
+@token=7de9c349112480f5f88cd503cf9547c7ae3c66bc
+
+# Add a new product
+###
+POST http://127.0.0.1:8000/product
+Authorization: Token {{token}}
+Content-Type: application/json
+
+{
+    "name":"asus rog",
+    "description":"512GB HDD, 8GB RAM",
+    "category":"LapTop",
+    "price":30000,
+    "stock":50
+}
+
+#Retrieve all products
+###
+GET http://127.0.0.1:8000/product
+Authorization: Token {{token}}
+
+#Retrieve products on id
+###
+GET http://127.0.0.1:8000/detail/1
+Authorization: Token {{token}}
+
+
+
+#Update product details
+###
+PUT http://127.0.0.1:8000/detail/1
+Authorization: Token {{token}}
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "Lenovo Ideapad Gaming 3",
+    "description": "512GB SSD, 16GB RAM",
+    "category": "LapTop",
+    "price": 55000.00,
+    "stock": 25,
+    "created_at": "2026-11-16T07:08:15.839264Z"
+}
+
+# Delete a product
+###
+DELETE http://127.0.0.1:8000/detail/2
+Authorization: Token {{token}}
+
+#Retrieve products stocks less than 10
+###
+GET http://127.0.0.1:8000/product?stock__lt=10
+Authorization: Token {{token}}
+
+# search by name
+
+###
+GET http://127.0.0.1:8000/product?search=asus rog
+Authorization: Token {{token}}
+
+
+# price not negative
+###
+PUT http://127.0.0.1:8000/detail/1
+Authorization: Token {{token}}
+Content-Type: application/json
+
+{
+    "id": 1,
+    "name": "Lenovo Ideapad Gaming 3",
+    "description": "512GB SSD, 16GB RAM",
+    "category": "LapTop",
+    "price": -55000.00,
+    "stock": 25,
+    "created_at": "2026-11-16T07:08:15.839264Z"
+}
